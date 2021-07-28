@@ -21,7 +21,7 @@ public class CadastroDeProduto {
 		Produto produto = produtoDAO.buscarPorId(id);
 		System.out.println(produto);
 		
-		for (Produto produto2 : produtoDAO.buscarTodos()) {
+		for (Produto produto2 : produtoDAO.buscarPorNomeDaCategoria("CELULARES")) {
 			System.out.println(produto2);
 		}
 	}
