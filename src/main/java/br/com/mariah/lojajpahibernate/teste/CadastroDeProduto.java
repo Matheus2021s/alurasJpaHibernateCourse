@@ -7,7 +7,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import br.com.mariah.lojajpahibernate.dao.ProdutoDAO;
 import br.com.mariah.lojajpahibernate.model.Produto;
+import br.com.mariah.lojajpahibernate.util.JPAUtil;
 
 public class CadastroDeProduto {
 
@@ -17,15 +19,16 @@ public class CadastroDeProduto {
 		celular.setDescricao("mobile");
 		celular.setPreco(new BigDecimal(1000));
 		
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("loja");		
 		
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = JPAUtil.getEntityManager();
 		
-		EntityTransaction transaction = entityManager.getTransaction();
+		ProdutoDAO produtoDAO = new ProdutoDAO(entityManager);
 		
-		transaction.begin();
-		entityManager.persist(celular);
-		transaction.commit();
+		entityManager.getTransaction().begin();
+		
+		produtoDAO.cadastrar(celular);
+		
+		entityManager.getTransaction().commit();
 		
 		entityManager.close();
 
