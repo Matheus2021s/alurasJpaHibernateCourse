@@ -13,11 +13,25 @@ import br.com.mariah.lojajpahibernate.util.JPAUtil;
 public class CadastroDeProduto {
 
 	public static void main(String[] args) {
+		cadastrarProduto();
+		Long id = 1L;
+		
 		EntityManager entityManager = JPAUtil.getEntityManager();
+		ProdutoDAO produtoDAO = new ProdutoDAO(entityManager);
+		Produto produto = produtoDAO.buscarPorId(id);
+		System.out.println(produto);
+		
+		for (Produto produto2 : produtoDAO.buscarTodos()) {
+			System.out.println(produto2);
+		}
+	}
+
+	private static void cadastrarProduto() {
 		
 		Categoria celurares = new Categoria("CELULARES");		
 		Produto celular = new Produto("XIAOMI","MOBILE",new BigDecimal(1000), celurares);
 		
+		EntityManager entityManager = JPAUtil.getEntityManager();
 		
 		CategoriaDAO categoriaDAO = new CategoriaDAO(entityManager);
 		ProdutoDAO produtoDAO = new ProdutoDAO(entityManager);
@@ -30,7 +44,5 @@ public class CadastroDeProduto {
 		entityManager.getTransaction().commit();
 		
 		entityManager.close();
-
-	
 	}
 }
