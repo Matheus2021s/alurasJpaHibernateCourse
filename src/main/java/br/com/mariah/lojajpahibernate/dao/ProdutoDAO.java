@@ -1,5 +1,6 @@
 package br.com.mariah.lojajpahibernate.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -48,5 +49,12 @@ public class ProdutoDAO {
 		return this.entityManager.createQuery(jpql, Produto.class)
 				.setParameter("nome", nome )
 				.getResultList();
+	}
+	
+	public BigDecimal buscarPrecoDoProdutoPeloNome(String nome) {
+		String jpql = "SELECT p.preco FROM Produto p WHERE p.nome = :nome";
+		return this.entityManager.createQuery(jpql,BigDecimal.class)
+				.setParameter("nome", nome)
+				.getSingleResult();
 	}
 }
