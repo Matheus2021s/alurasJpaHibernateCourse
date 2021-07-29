@@ -2,6 +2,7 @@ package br.com.mariah.lojajpahibernate.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,8 @@ public class ItemPedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@Column(name = "preco_unitario")
 	private BigDecimal precoUnitario;
 
 	private Integer quantidade;
