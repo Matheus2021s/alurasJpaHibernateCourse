@@ -2,6 +2,7 @@ package br.com.mariah.lojajpahibernate.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -25,12 +26,17 @@ public class Pedido {
 	@ManyToOne
 	private Cliente cliente;
 
-	@OneToMany
-	private List<ItemPedido> itens;
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
 	
 	public Pedido() {
 	}
 
+	public void adicionarItem(ItemPedido itemPedido){
+		itemPedido.setPedido(this);
+		this.itens.add(itemPedido);
+	}
+	
 	public Pedido(Cliente cliente) {
 		this.cliente = cliente;
 	}
