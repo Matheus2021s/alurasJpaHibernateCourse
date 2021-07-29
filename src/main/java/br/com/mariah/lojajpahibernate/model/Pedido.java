@@ -23,7 +23,7 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "valor_total")
-	private BigDecimal valorTotal;
+	private BigDecimal valorTotal = BigDecimal.ZERO;
 	private LocalDate data = LocalDate.now();
 
 	@ManyToOne
@@ -38,6 +38,7 @@ public class Pedido {
 	public void adicionarItem(ItemPedido itemPedido){
 		itemPedido.setPedido(this);
 		this.itens.add(itemPedido);
+		this.valorTotal = this.valorTotal.add(itemPedido.getValor());
 	}
 	
 	public Pedido(Cliente cliente) {

@@ -1,5 +1,6 @@
 package br.com.mariah.lojajpahibernate.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -34,6 +35,11 @@ public class PedidoDAO {
 	public List<Pedido> buscarTodos() {
 		String jpql = "SELECT p FROM Pedido p";
 		return this.entityManager.createQuery(jpql, Pedido.class).getResultList();
+	}
+	
+	public BigDecimal valorTotalVendido() {
+		String jpql = "SELECT SUM(p.valorTotal) FROM Pedido p ";
+		return this.entityManager.createQuery(jpql, BigDecimal.class).getSingleResult();
 	}
 	
 }
