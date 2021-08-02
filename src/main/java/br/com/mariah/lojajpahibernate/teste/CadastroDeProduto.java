@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import br.com.mariah.lojajpahibernate.dao.CategoriaDAO;
 import br.com.mariah.lojajpahibernate.dao.ProdutoDAO;
 import br.com.mariah.lojajpahibernate.model.Categoria;
+import br.com.mariah.lojajpahibernate.model.CategoriaId;
 import br.com.mariah.lojajpahibernate.model.Produto;
 import br.com.mariah.lojajpahibernate.util.JPAUtil;
 
@@ -46,6 +47,7 @@ public class CadastroDeProduto {
 		
 		entityManager.getTransaction().commit();
 		
+		entityManager.find(Categoria.class, new CategoriaId("CELULARES", "xpto"));
 		entityManager.close();
 	}
 }
