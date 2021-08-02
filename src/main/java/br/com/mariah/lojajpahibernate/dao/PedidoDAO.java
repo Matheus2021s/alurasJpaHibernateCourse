@@ -58,4 +58,12 @@ public class PedidoDAO {
 		return this.entityManager.createQuery(jpql, RelatorioDeVendasVo.class ).getResultList();
 	}
 	
+	public Pedido buscarPedidoComCliente(Long id) {
+		return this.entityManager.createQuery(""
+				+ "SELECT p FROM Pedido p JOIN FETCH p.cliente WHERE p.id = :id"
+				+ "", Pedido.class)
+				.setParameter("id", id)
+				.getSingleResult();
+	}
+	
 }
