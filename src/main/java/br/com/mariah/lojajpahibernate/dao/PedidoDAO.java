@@ -2,11 +2,11 @@ package br.com.mariah.lojajpahibernate.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 
 import br.com.mariah.lojajpahibernate.model.Pedido;
+import br.com.mariah.lojajpahibernate.vo.RelatorioDeVendasVo;
 
 public class PedidoDAO {
 
@@ -43,16 +43,19 @@ public class PedidoDAO {
 		return this.entityManager.createQuery(jpql, BigDecimal.class).getSingleResult();
 	}
 	
-	public List<Object[]> relatorioDeVendas() {
-		String jpql = "SELECT produto.nome,"
+	public List<RelatorioDeVendasVo> relatorioDeVendas() {
+		String jpql = "SELECT new "
+				+ " br.com.mariah.lojajpahibernate.vo.RelatorioDeVendasVo("
+				+ " produto.nome ,"
 				+ " sum( item.quantidade ),"
 				+ " max( pedido.data ) "
+				+ " )"
 				+ " FROM Pedido pedido "
 				+ " JOIN pedido.itens item"
 				+ " JOIN item.produto produto "
 				+ " GROUP BY produto.nome "
 				+ " ORDER BY item.quantidade DESC ";	
-		return this.entityManager.createQuery(jpql, Object[].class ).getResultList();
+		return this.entityManager.createQuery(jpql, RelatorioDeVendasVo.class ).getResultList();
 	}
 	
 }
