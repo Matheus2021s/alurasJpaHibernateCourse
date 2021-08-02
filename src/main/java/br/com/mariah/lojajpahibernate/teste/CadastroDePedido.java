@@ -1,6 +1,7 @@
 package br.com.mariah.lojajpahibernate.teste;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -45,6 +46,14 @@ public class CadastroDePedido {
 		BigDecimal valorTotalVendido = pedidoDAO.valorTotalVendido();
 		System.out.println("valor total vendido: " + valorTotalVendido);
 
+		
+		List<Object[]> relatorioDeVendas = pedidoDAO.relatorioDeVendas();
+		for (Object[] objects : relatorioDeVendas) {
+			System.out.println(objects[0]);
+			System.out.println(objects[1]);
+			System.out.println(objects[2]);
+
+		}
 		entityManager.close();
 	}
 

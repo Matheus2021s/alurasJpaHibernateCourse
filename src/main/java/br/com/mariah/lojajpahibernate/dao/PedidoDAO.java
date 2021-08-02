@@ -2,6 +2,7 @@ package br.com.mariah.lojajpahibernate.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 
@@ -40,6 +41,18 @@ public class PedidoDAO {
 	public BigDecimal valorTotalVendido() {
 		String jpql = "SELECT SUM(p.valorTotal) FROM Pedido p ";
 		return this.entityManager.createQuery(jpql, BigDecimal.class).getSingleResult();
+	}
+	
+	public List<Object[]> relatorioDeVendas() {
+		String jpql = "SELECT produto.nome,"
+				+ " sum( item.quantidade ),"
+				+ " max( pedido.data ) "
+				+ " FROM Pedido pedido "
+				+ " JOIN pedido.itens item"
+				+ " JOIN item.produto produto "
+				+ " GROUP BY produto.nome "
+				+ " ORDER BY item.quantidade DESC ";	
+		return this.entityManager.createQuery(jpql, Object[].class ).getResultList();
 	}
 	
 }
